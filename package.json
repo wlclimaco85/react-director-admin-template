@@ -1,7 +1,7 @@
 {
   "name": "react-director-admin-template",
   "version": "0.9.0",
-  "description": "ReactJS version of Director Responsive Admin Template Free 001",
+  "description": "ReactJS version of Director Responsive Admin Template Free 001 002",
   "main": "src/index.js",
   "scripts": {
     "flow": "node_modules/.bin/flow",
