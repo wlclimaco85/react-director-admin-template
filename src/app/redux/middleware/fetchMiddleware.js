@@ -101,7 +101,7 @@ const fetchMiddleware = store => next => action => {
       withCredentials: true,
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json;charset=utf-8',
         'Acces-Control-Allow-Origin': '*',
         ...headers
       },

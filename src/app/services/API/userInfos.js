@@ -9,7 +9,8 @@ import {
 }                     from '../fetchTools';
 
 export const getUserInfoData = () => {
-  const url = `${getLocationOrigin()}/${appConfig.userInfos.data.API}`;
+  debugger;
+  const url = "http://localhost:8080/user/findUserByEmail";
   const options = {...defaultOptions};
 
   fetch(url, options)

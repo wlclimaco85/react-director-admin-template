@@ -74,11 +74,7 @@ export default function (
 
   // user login (get token and userInfo)
   case REQUEST_LOG_USER:
-    return {
-      ...state,
-      actionTime: currentTime,
-      isLogging:  true
-    };
+    return JSON.stringify({ "username": "wlclimaco9@gmail.com", "password": "admin" });
 
   case RECEIVED_LOG_USER: {
     const userLogged = action.payload;
@@ -191,19 +187,14 @@ function logUser(
   password: string
 ) {
   return async (dispatch) => {
-    const FETCH_TYPE  = appConfig.DEV_MODE ? 'FETCH_MOCK' : 'FETCH';
+    const FETCH_TYPE  = 'FETCH';
     const __SOME_LOGIN_API__ = 'login';
-    const mockResult  = { token: userInfosMockData.token, data: {...userInfosMockData}}; // will be fetch_mock data returned (in case FETCH_TYPE = 'FETCH_MOCK', otherwise cata come from server)
-    const url         = `${getLocationOrigin()}/${__SOME_LOGIN_API__}`;
-    const method      = 'post';
-    const headers     = {};
-    const options     = {
-      credentials: 'same-origin',
-      data: {
-        login,
-        password
-      }
-    };
+   // const mockResult  = { token: userInfosMockData.token, data: {...userInfosMockData}}; // will be fetch_mock data returned (in case FETCH_TYPE = 'FETCH_MOCK', otherwise cata come from server)
+    const url         = 'http://localhost:8080/auth';
+    const method      = 'POST';
+    const headers     = {'Accept': 'application/json',
+                         'Content-Type' : 'application/json;charset=utf-8'};
+    const options     = {username: "wlclimaco9@gmail.com", password: "admin"};
 
     // fetchMiddleware (does: fetch mock, real fetch, dispatch 3 actions... for a minimum code on action creator!)
     return dispatch({
@@ -217,7 +208,7 @@ function logUser(
           fail:     ERROR_LOG_USER
         },
         // mock fetch props:
-        mockResult,
+    //    mockResult,
         // real fetch props:
         url,
         method,
@@ -261,10 +252,10 @@ function shouldLogUser(
 function fetchUserInfosData(id = '') {
   return dispatch => {
     const token = auth.getToken();
-    const FETCH_TYPE  = appConfig.DEV_MODE ? 'FETCH_MOCK' : 'FETCH';
+    const FETCH_TYPE  = 'FETCH';
 
     const mockResult  = { token: userInfosMockData.token, data: {...userInfosMockData}}; // will be fetch_mock data returned (in case FETCH_TYPE = 'FETCH_MOCK', otherwise cata come from server)
-    const url         = `${getLocationOrigin()}/${appConfig.API.users}/${id}`;
+    const url         = "http://localhost:8080/user/findUserByEmail";
     const method      = 'get';
     const headers     = { authorization: `Bearer ${token}` };
     const options     = { credentials: 'same-origin' }; // put options here (see axios options)
